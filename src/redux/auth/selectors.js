@@ -6,6 +6,6 @@ export const selectAllTasks = (state) => state.tasks.items;
 
 export const selectIsRefreshing = (state) => state.auth.isRefreshing;
 
-export const selectIsloggedIn = (state) => state.auth.isLoggedIn;
+export const selectIsLoggedIn = (state) => state.auth.isLoggedIn;
 
 export const selectUser = (state) => state.auth.user;
