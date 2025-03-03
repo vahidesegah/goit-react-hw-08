@@ -53,3 +53,4 @@ const tasksSlice = createSlice({
 });
 
 export const tasksReducer = tasksSlice.reducer;
+export const authReducer = tasksSlice.reducer;
