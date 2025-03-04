@@ -12,3 +12,10 @@ export const PrivateRoute = ({ component: Component, redirectTo = "/" }) => {
 
   return isLoggedIn ? Component : <Navigate to={redirectTo} />;
 };
+
+<Route
+            path="/contacts"
+            element={
+              <PrivateRoute redirectTo="/login" component={<TasksPage />} />
+            }
+          />
