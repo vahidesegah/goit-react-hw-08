@@ -1,16 +1,16 @@
 import { useSelector } from "react-redux";
-import { Task } from "../Task/Task";
-import { selectAllTasks } from "../../redux/contacts/selectors";
-import css from "./TaskList.module.css";
+import { Contact } from "../Contact/Contact";
+import { selectAllContacts } from "../../redux/contacts/selectors";
+import css from "./ContactList.module.css";
 
-export const TaskList = () => {
-  const tasks = useSelector(selectAllTasks);
+export const ContactList = () => {
+  const contacts = useSelector(selectAllContacts);
 
   return (
     <ul className={css.list}>
-      {tasks.map(({ id, text }) => (
+      {contacts.map(({ id, text }) => (
         <li key={id}>
-          <Task id={id} text={text} />
+          <Contact id={id} text={text} />
         </li>
       ))}
     </ul>

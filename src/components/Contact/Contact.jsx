@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { deleteTask } from "../../redux/contacts/operations";
-import css from "./Task.module.css";
+import css from "./Contact.module.css";
 
 export const Task = ({ id, text }) => {
   const dispatch = useDispatch();
