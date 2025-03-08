@@ -1,0 +1,9 @@
+
+.contactsContainer {
+  padding: 20px;
+}
+
+.contactItem {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
