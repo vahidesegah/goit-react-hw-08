@@ -6,7 +6,7 @@ import Contact from "../../components/Contact/Contact";
 import Filter from "../../redux/filters/slice.js";
 import styles from "./ContactsPage.module.css";
 
-const ContactsPage = () => {
+export const ContactsPage = () => {
   const dispatch = useDispatch();
   const contacts = useSelector((state) => state.contacts.items);
 

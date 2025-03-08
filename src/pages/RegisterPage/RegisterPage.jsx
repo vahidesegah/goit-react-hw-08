@@ -54,4 +54,4 @@ const RegistrationPage = () => {
   );
 };
 
-export default RegisterPage;
+export default RegistrationPage;
