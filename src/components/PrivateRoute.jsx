@@ -8,3 +8,8 @@ const PrivateRoute = ({ component }) => {
 };
 
 export default PrivateRoute;
+
+<Route
+  path="/contacts"
+  element={<PrivateRoute redirectTo="/login" component={<TasksPage />} />}
+/>;
