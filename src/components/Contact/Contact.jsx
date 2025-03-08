@@ -1,11 +1,12 @@
 import { useDispatch } from "react-redux";
-import { deleteTask } from "../../redux/contacts/operations";
+import { deleteContact } from "../../redux/contacts/operations";
+import PropTypes from "prop-types";
 import css from "./Contact.module.css";
 
-export const Task = ({ id, text }) => {
+export const Contact = ({ id, text }) => {
   const dispatch = useDispatch();
 
-  const handleDelete = () => dispatch(deleteTask(id));
+  const handleDelete = () => dispatch(deleteContact(id));
 
   return (
     <div className={css.wrapper}>
@@ -15,4 +16,9 @@ export const Task = ({ id, text }) => {
       </button>
     </div>
   );
+};
+
+Contact.propTypes = {
+  id: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
 };
