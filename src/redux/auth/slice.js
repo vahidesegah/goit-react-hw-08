@@ -1,56 +1,49 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { logOut } from "../auth/operations";
-import { fetchTasks, addTask, deleteTask } from "./operations";
+import { register, login, logout, refreshUser } from "./operations";
 
-const handlePending = (state) => {
-  state.isLoading = true;
+const initialState = {
+  user: { name: null, email: null },
+  token: null,
+  isLoggedIn: false,
+  isRefreshing: false,
 };
 
-const handleRejected = (state, action) => {
-  state.isLoading = false;
-  state.error = action.payload;
-};
-
-const tasksSlice = createSlice({
-  name: "tasks",
-  initialState: {
-    items: [],
-    isLoading: false,
-    error: null,
-  },
+const authSlice = createSlice({
+  name: "auth",
+  initialState,
   extraReducers: (builder) => {
     builder
-      .addCase(fetchTasks.pending, handlePending)
-      .addCase(fetchTasks.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.error = null;
-        state.items = action.payload;
+      // Register
+      .addCase(register.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        state.isLoggedIn = true;
       })
-      .addCase(fetchTasks.rejected, handleRejected)
-      .addCase(addTask.pending, handlePending)
-      .addCase(addTask.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.error = null;
-        state.items.push(action.payload);
+      // Login
+      .addCase(login.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        state.isLoggedIn = true;
       })
-      .addCase(addTask.rejected, handleRejected)
-      .addCase(deleteTask.pending, handlePending)
-      .addCase(deleteTask.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.error = null;
-        const index = state.items.findIndex(
-          (task) => task.id === action.payload.id
-        );
-        state.items.splice(index, 1);
+      // Logout
+      .addCase(logout.fulfilled, (state) => {
+        state.user = { name: null, email: null };
+        state.token = null;
+        state.isLoggedIn = false;
       })
-      .addCase(deleteTask.rejected, handleRejected)
-      .addCase(logOut.fulfilled, (state) => {
-        state.items = [];
-        state.error = null;
-        state.isLoading = false;
+      // Refresh User
+      .addCase(refreshUser.pending, (state) => {
+        state.isRefreshing = true;
+      })
+      .addCase(refreshUser.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.isLoggedIn = true;
+        state.isRefreshing = false;
+      })
+      .addCase(refreshUser.rejected, (state) => {
+        state.isRefreshing = false;
       });
   },
 });
 
-export const tasksReducer = tasksSlice.reducer;
-export const authReducer = tasksSlice.reducer;
+export const authReducer = authSlice.reducer;

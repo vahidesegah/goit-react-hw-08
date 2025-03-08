@@ -1,40 +1,59 @@
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { register } from "../../redux/auth/operations";
-import css from "./RegisterForm.module.css";
+import styles from "./RegisterForm.module.css";
 
-export const RegisterForm = () => {
+const RegisterForm = () => {
   const dispatch = useDispatch();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const form = e.target;
-
-    dispatch(
-      register({
-        name: form.elements.name.value,
-        email: form.elements.email.value,
-        password: form.elements.password.value,
-      })
-    );
-
-    form.reset();
+    dispatch(register({ name, email, password }));
+    setName("");
+    setEmail("");
+    setPassword("");
   };
 
   return (
-    <form className={css.form} onSubmit={handleSubmit} autoComplete="off">
-      <label className={css.label}>
-        Username
-        <input type="text" name="name" />
+    <form className={styles.form} onSubmit={handleSubmit}>
+      <label className={styles.label}>
+        Name
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
       </label>
-      <label className={css.label}>
+
+      <label className={styles.label}>
         Email
-        <input type="email" name="email" />
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
       </label>
-      <label className={css.label}>
+
+      <label className={styles.label}>
         Password
-        <input type="password" name="password" />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
       </label>
-      <button type="submit">Register</button>
+
+      <button type="submit" className={styles.button}>
+        Register
+      </button>
     </form>
   );
 };
+
+export default RegisterForm;
