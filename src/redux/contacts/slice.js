@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { logOut } from "../auth/operations";
-import { fetchTasks, addTask, deleteTask } from "./operations";
+import { logout } from "../auth/operations";
+import { fetchContacts, addContact, deleteContact } from "./operations";
 
 const handlePending = (state) => {
   state.isLoading = true;
@@ -11,8 +11,8 @@ const handleRejected = (state, action) => {
   state.error = action.payload;
 };
 
-const tasksSlice = createSlice({
-  name: "tasks",
+const contactsSlice = createSlice({
+  name: "contacts",
   initialState: {
     items: [],
     isLoading: false,
@@ -20,31 +20,31 @@ const tasksSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchTasks.pending, handlePending)
-      .addCase(fetchTasks.fulfilled, (state, action) => {
+      .addCase(fetchContacts.pending, handlePending)
+      .addCase(fetchContacts.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
         state.items = action.payload;
       })
-      .addCase(fetchTasks.rejected, handleRejected)
-      .addCase(addTask.pending, handlePending)
-      .addCase(addTask.fulfilled, (state, action) => {
+      .addCase(fetchContacts.rejected, handleRejected)
+      .addCase(addContact.pending, handlePending)
+      .addCase(addContact.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
         state.items.push(action.payload);
       })
-      .addCase(addTask.rejected, handleRejected)
-      .addCase(deleteTask.pending, handlePending)
-      .addCase(deleteTask.fulfilled, (state, action) => {
+      .addCase(addContact.rejected, handleRejected)
+      .addCase(deleteContact.pending, handlePending)
+      .addCase(deleteContact.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
         const index = state.items.findIndex(
-          (task) => task.id === action.payload.id
+          (contact) => contact.id === action.payload.id
         );
         state.items.splice(index, 1);
       })
-      .addCase(deleteTask.rejected, handleRejected)
-      .addCase(logOut.fulfilled, (state) => {
+      .addCase(deleteContact.rejected, handleRejected)
+      .addCase(logout.fulfilled, (state) => {
         state.items = [];
         state.error = null;
         state.isLoading = false;
@@ -52,4 +52,4 @@ const tasksSlice = createSlice({
   },
 });
 
-export const tasksReducer = tasksSlice.reducer;
+export const contactsReducer = contactsSlice.reducer;
