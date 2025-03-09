@@ -29,3 +29,11 @@ export const deleteContact = async (id) => {
   await axios.delete(`/contacts/${id}`);
   return id;
 };
+
+export default {
+  setAuthToken,
+  clearAuthToken,
+  fetchContacts,
+  addContact,
+  deleteContact,
+};

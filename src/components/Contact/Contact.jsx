@@ -1,26 +1,45 @@
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { deleteContact } from "../../redux/contacts/operations";
-import PropTypes from "prop-types";
-import css from "./Contact.module.css";
+import { addContact } from "../../redux/contacts/operations";
+import { nanoid } from "@reduxjs/toolkit";
 
-export const Contact = ({ id, text }) => {
+const ContactForm = () => {
+  const [name, setName] = useState("");
+  const [number, setNumber] = useState("");
   const dispatch = useDispatch();
 
-  const handleDelete = () => dispatch(deleteContact(id));
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(
+      addContact({
+        id: nanoid(),
+        name,
+        number,
+      })
+    );
+    setName("");
+    setNumber("");
+  };
 
   return (
-    <div className={css.wrapper}>
-      <p className={css.text}>{text}</p>
-      <button type="button" className={css.button} onClick={handleDelete}>
-        Delete
-      </button>
-    </div>
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        placeholder="Name"
+        required
+      />
+      <input
+        type="tel"
+        value={number}
+        onChange={(e) => setNumber(e.target.value)}
+        placeholder="Phone number"
+        required
+      />
+      <button type="submit">Add Contact</button>
+    </form>
   );
 };
 
-Contact.propTypes = {
-  id: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
-};
-
-export default Contact;
+export default ContactForm;

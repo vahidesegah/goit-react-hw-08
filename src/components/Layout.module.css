@@ -1,0 +1,52 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.header {
+  background-color: #f8f9fa;
+  padding: 1rem 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navList {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navLink {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navLink:hover {
+  color: #007bff;
+}
+
+.activeLink {
+  color: #007bff;
+}
+
+.main {
+  padding: 2rem 0;
+  min-height: calc(100vh - 140px);
+}
+
+.footer {
+  background-color: #f8f9fa;
+  padding: 1rem 0;
+  text-align: center;
+  margin-top: auto;
+}
