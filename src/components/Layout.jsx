@@ -3,7 +3,7 @@ import AppBar from "./AppBar/AppBar";
 import styles from "./Layout.module.css";
 import { useSelector } from "react-redux";
 import { selectIsLoggedIn } from "../redux/auth/selectors";
-import { Usermenu } from "./UserMenu/UserMenu";
+import UserMenu from "./UserMenu/UserMenu";
 
 const Layout = () => {
   const isLoggedIn = useSelector((state) => state.auth.selectIsLoggedIn);
