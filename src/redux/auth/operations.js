@@ -3,6 +3,21 @@ import axios from "axios";
 
 axios.defaults.baseURL = "https://connections-api.goit.global/";
 
+export const fetchContacts = createAsyncThunk(
+  "contacts/fetchAll",
+  async (_, thunkAPI) => {
+    try {
+      const state = thunkAPI.getState();
+      const token = state.auth.token;
+      axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+      const response = await axios.get("/contacts");
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
 // Register a new user
 export const register = createAsyncThunk(
   "auth/register",
@@ -42,18 +57,15 @@ export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
 export const refreshUser = createAsyncThunk(
   "auth/refresh",
   async (_, thunkAPI) => {
-    const state = thunkAPI.getState();
-    const token = state.auth.token;
-
-    if (!token) {
-      return thunkAPI.rejectWithValue("No token found");
-    }
-
     try {
-      const { data } = await axios.get("/users/current", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      return data;
+      const state = thunkAPI.getState();
+      const token = state.auth.token;
+      if (!token) {
+        return thunkAPI.rejectWithValue("No token available");
+      }
+      axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+      const response = await axios.get("/users/current");
+      return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
