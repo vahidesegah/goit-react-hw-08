@@ -17,6 +17,7 @@ const Layout = () => {
                 Home
               </NavLink>
             </li>
+
             {isLoggedIn ? (
               <>
                 <li>
@@ -24,7 +25,7 @@ const Layout = () => {
                     Contacts
                   </NavLink>
                 </li>
-                {UserMenu}
+                {(AppBar, UserMenu)}
               </>
             ) : (
               <>
